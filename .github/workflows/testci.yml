@@ -35,7 +35,7 @@ jobs:
         run: mkdir ./UA && trans hellow > ./UA/test.txt
       - uses: actions/upload-artifact@v4
         with:
-          path: ./UA
+          path: ./UA/test.txt
 
   test0:
     # The type of runner that the job will run on
@@ -57,7 +57,7 @@ jobs:
         run: mkdir ./UA && trans hellow > ./UA/test2.txt
       - uses: actions/upload-artifact@v4
         with:
-          path: ./UA
+          path: ./UA/test2.txt
 
   test:
     runs-on: ubuntu-latest
