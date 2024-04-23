@@ -33,7 +33,7 @@ jobs:
 
       - name: Test Translation
         run: mkdir ./UA && trans hellow > ./UA/test.txt
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: ./UA/*
 
@@ -55,7 +55,7 @@ jobs:
 
       - name: Test Translation
         run: mkdir ./UA && trans hellow > ./UA/test2.txt
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: ./UA/*
 
@@ -68,5 +68,5 @@ jobs:
         with:
           path: ./UA
       - name: Run a one-line script
-        run: ls -alh ./UA
+        run: du -h ./UA
               
