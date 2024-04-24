@@ -31,9 +31,11 @@ jobs:
       
       - name: Add New Line in JSOS
         run: |
+          new_br="build-123"
           echo "Try echo GIT ENV"
           echo "BRANCH=$new_br" >> $GITHUB_ENV
           echo "$BRANCH"
+          
                     #find . -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
           #  echo "Обробляємо файл: $file"
           ##  # Вивід та запис JSON-файлу за допомогою jq
