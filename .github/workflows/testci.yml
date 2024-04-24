@@ -31,27 +31,34 @@ jobs:
       
       - name: Add New Line in JSOS
         run: |
-          find . -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
-            echo "Обробляємо файл: $file"
-            # Вивід та запис JSON-файлу за допомогою jq
-            jq '.' "$file" > "$file.tmp" && mv "$file.tmp" "$file"
-          done
+          echo "Try echo GIT ENV"
+          echo "BRANCH=$new_br" >> $GITHUB_ENV
+          echo "$BRANCH"
+                    #find . -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
+          #  echo "Обробляємо файл: $file"
+          ##  # Вивід та запис JSON-файлу за допомогою jq
+          #  jq '.' "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+          #done
         continue-on-error: false
         
       - name: prep modules
         run: |
-          echo "Create id container..."
-          cont_id=$(uuidgen)
-          echo "Start container"
-          docker run -d --name "$cont_id" -u 0:0 -h "$cont_id" polyakovrbc/trans
-          echo "Create dir"
-          mkdir -p ./UA
-          echo "start translate..."
-          while IFS= read -r line || [[ -n "$line" ]]; do
-          echo "translate line --->> $line"
-          docker exec $cont_id /bin/bash -c "trans -b -no-ansi -no-autocorrect -no-bidi -no-warn -s ru -t uk '$line'" >> "./UA/ru-RU.json"
-          done < "ru-RU.json"
-          docker stop "$cont_id"         
+          echo "Try echo env"
+          echo "$BRANCH"
+          echo "Try echo 2"
+          echo "${{ env.BRANCH }}"
+          #echo "Create id container..."
+          #cont_id=$(uuidgen)
+          #echo "Start container"
+          #docker run -d --name "$cont_id" -u 0:0 -h "$cont_id" polyakovrbc/trans
+          #echo "Create dir"
+          #mkdir -p ./UA
+          #echo "start translate..."
+          #while IFS= read -r line || [[ -n "$line" ]]; do
+          #echo "translate line --->> $line"
+          #docker exec $cont_id /bin/bash -c "trans -b -no-ansi -no-autocorrect -no-bidi -no-warn -s ru -t uk '$line'" >> "./UA/ru-RU.json"
+          #done < "ru-RU.json"
+          #docker stop "$cont_id"         
           
       - uses: actions/upload-artifact@v3
         with:
@@ -69,7 +76,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo "${{ env.BRANCH }}"
       - name: Test Translation
         run: mkdir ./UA && trans hellow > ./UA/test2.txt
       - uses: actions/upload-artifact@v3
